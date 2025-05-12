@@ -42,7 +42,14 @@ try{
 
         & .venv\Scripts\activate.ps1
 
-        pip install pytesseract pdf2image
+        if (-not (Test-Path '.\.venv\Lib\site-packages\pytesseract' -ErrorAction SilentlyContinue)){
+            pip install pytesseract
+        }
+
+        if (-not (Test-Path '.\.venv\Lib\site-packages\pdf2image' -ErrorAction SilentlyContinue)){
+            pip install pdf2image
+        }
+
 
         python .\script.py
     }
