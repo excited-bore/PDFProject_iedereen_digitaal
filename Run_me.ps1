@@ -8,8 +8,8 @@ try{
         # Tesseract 
         if (-not (Test-Path 'C:\Program Files\Tesseract-OCR' -ErrorAction SilentlyContinue)){
             $tmp = New-TemporaryDirectory
-            Invoke-WebRequest -Uri 'https://github.com/tesseract-ocr/tesseract/releases/download/5.5.0/tesseract-ocr-w64-setup-5.5.0.20241111.exe' -OutFile "$tmp\tesseract_setup.exe"
-            & "$tmp\tesseract_setup.exe"
+            Invoke-WebRequest -Uri 'https://github.com/tesseract-ocr/tesseract/releases/download/5.5.0/tesseract-ocr-w64-setup-5.5.0.20241111.exe' -OutFile "$env:TEMP\tesseract_setup.exe"
+            & "$env:TEMP\tesseract_setup.exe"
         }
 
         if (-not (Test-Path 'C:\Program Files\Tesseract-OCR\tessdata\nld.traineddata' -ErrorAction SilentlyContinue)){
@@ -18,10 +18,8 @@ try{
 
         # Poppler
         if (-not (Test-Path 'C:\Program Files\poppler\Library' -ErrorAction SilentlyContinue)){
-            $tmp = New-TemporaryDirectory
-            Invoke-WebRequest -Uri 'https://github.com/oschwartz10612/poppler-windows/releases/download/v24.08.0-0/Release-24.08.0-0.zip' -OutFile "$tmp\poppler.zip"
-            [System.Environment]::SetEnvironmentVariable("tmp", $tmp, "User")
-            Start-Process powershell -Verb RunAs -ArgumentList '-NoProfile', '-Command', "Expand-Archive -Path `"$env:tmp\poppler.zip`" -DestinationPath 'C:\Program Files\'"
+            Invoke-WebRequest -Uri 'https://github.com/oschwartz10612/poppler-windows/releases/download/v24.08.0-0/Release-24.08.0-0.zip' -OutFile "$env:TEMP\poppler.zip"
+            Start-Process powershell -Verb RunAs -ArgumentList '-NoProfile', '-Command', "Expand-Archive -Path `"$env:TEMP\poppler.zip`" -DestinationPath 'C:\Program Files\'"
             Start-Process powershell -Verb RunAs -ArgumentList '-NoProfile', '-Command', "Rename-Item -Path 'C:\Program Files\poppler-24.08.0' -NewName 'poppler'"
         }
         
