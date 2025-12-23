@@ -42,8 +42,8 @@ try{
 
         & .venv\Scripts\activate.ps1
 
-        if (-not (Test-Path '.\.venv\Lib\site-packages\pytesseract' -ErrorAction SilentlyContinue)){
-            pip install pytesseract
+        if (-not (Test-Path '.\.venv\Lib\site-packages\easyocr' -ErrorAction SilentlyContinue)){
+            pip install easyocr
         }
 
         if (-not (Test-Path '.\.venv\Lib\site-packages\pdf2image' -ErrorAction SilentlyContinue)){
