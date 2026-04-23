@@ -42,13 +42,15 @@ try{
 
         & .venv\Scripts\activate.ps1
 
-        if (-not (Test-Path '.\.venv\Lib\site-packages\easyocr' -ErrorAction SilentlyContinue)){
-            pip install easyocr
-        }
+        pip install -r requirements.txt
 
-        if (-not (Test-Path '.\.venv\Lib\site-packages\pdf2image' -ErrorAction SilentlyContinue)){
-            pip install pdf2image
-        }
+        #if (-not (Test-Path '.\.venv\Lib\site-packages\easyocr' -ErrorAction SilentlyContinue)){
+        #    pip install easyocr
+        #}
+
+        #if (-not (Test-Path '.\.venv\Lib\site-packages\pdf2image' -ErrorAction SilentlyContinue)){
+        #    pip install pdf2image
+        #}
 
 
         python .\script.py

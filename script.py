@@ -2,14 +2,30 @@ import glob
 import os
 import shutil
 
+from PyPDF2 import PdfReader, PdfWriter
 from pdf2image import convert_from_path
+
 #import pytesseract
 #pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 import easyocr
-reader = easyocr.Reader(['nl', 'en'])
+
+multi_pdf_dir = os.path.join(os.getcwd(), r'Multi_page_PDFS')
+
+multi_pdfs = glob.glob(os.path.join(multi_pdf_dir, "*.pdf")) 
 
 pdf_directory = os.path.join(os.getcwd(), r'PDFS')
+
+for multi_pdf in multi_pdfs:
+    reader = PdfReader(multi_pdf) 
+    for i in range(len(reader.pages)): 
+        writer = PdfWriter()
+        writer.add_page(reader.pages[i])
+        with open(os.path.join(pdf_directory, str(os.path.basename(multi_pdf)) + "-%s.pdf" % i), "wb") as outputStream: 
+            writer.write(outputStream) 
+
+
+reader = easyocr.Reader(['nl', 'en'])
 
 pdfs = glob.glob(os.path.join(pdf_directory, "*.pdf"))
 
